@@ -14,10 +14,14 @@ const Champion = props => {
 
     const champion = Object.values(props.champions);
     const array = [];
-    const linhas = champion[0].skins.map((e, i) => { 
+    const thumb = [];
+    champion[0].skins.map((e, i) => { 
         array.push(<img src={'http://ddragon.leagueoflegends.com/cdn/img/champion/splash/'+champion[0].id+'_'+e.num+'.jpg'}></img>)
     });
-    console.log(linhas)
+    
+    champion[0].skins.map((e, i) => { 
+        thumb.push(<img src={'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/'+champion[0].id+'_'+e.num+'.jpg'}></img>)
+    });
     return(
         <>           
             <Carousel 
@@ -28,7 +32,7 @@ const Champion = props => {
             >
             </Carousel>
             <Dots 
-                thumbnails={array} 
+                thumbnails={thumb} 
                 value={value}
                 onChange={onChange}
             />

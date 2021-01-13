@@ -7,7 +7,7 @@ const Champion = props => {
     const linhas = Object.keys(props.champions).map((e, i) => {
         return(
             <div key={props.champions[e].key}>
-                <a href="/champions/1"> <img src={'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/'+props.champions[e].id+'_0.jpg'} ></img> </a>
+                <a href={`/champions/${props.champions[e].id}`}> <img src={'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/'+props.champions[e].id+'_0.jpg'} ></img> </a>
             </div>
         );
     });

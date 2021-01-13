@@ -15,4 +15,11 @@ export const ChampionsBar = styled.div`
     display: flex;
     justify-content: space-evenly;
   }
+
+  .BrainhubCarousel__dots {
+    img {
+      width: 100px;
+    }
+  }
 `;
+
