@@ -1,21 +1,37 @@
 import React, {Component} from 'react';
 import Container from '../../Components/Container'
 import { ChampionsBar } from './styles'
+import Carousel, { Dots } from '@brainhubeu/react-carousel';
+import '@brainhubeu/react-carousel/lib/style.css'; 
+import { useState } from 'react';
 import apidragon from '../../services/api_dragon'
 
 const Champion = props => {
+    const [value, setValue] = useState(0);
+    const onChange = value => {
+        setValue(value);
+    }
+
     const champion = Object.values(props.champions);
-    const linhas = champion[0].skins.map((e, i) => {
-        return(
-            <div key={i}>
-                <img src={'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/'+champion[0].id+'_'+e.num+'.jpg'}></img>
-            </div>
-        );
+    const array = [];
+    const linhas = champion[0].skins.map((e, i) => { 
+        array.push(<img src={'http://ddragon.leagueoflegends.com/cdn/img/champion/splash/'+champion[0].id+'_'+e.num+'.jpg'}></img>)
     });
     console.log(linhas)
     return(
-        <>
-            {linhas}
+        <>           
+            <Carousel 
+                plugins={['arrows']}
+                value={value}
+                onChange={onChange}
+                slides={array}
+            >
+            </Carousel>
+            <Dots 
+                thumbnails={array} 
+                value={value}
+                onChange={onChange}
+            />
         </>
     );
 }
