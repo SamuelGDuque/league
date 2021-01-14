@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import Container from '../../Components/Container'
-import { ChampionsBar } from './styles'
-import Carousel, { Dots } from '@brainhubeu/react-carousel';
-import '@brainhubeu/react-carousel/lib/style.css'; 
+import { ChampionsInternaBar } from './styleInterna'
 import { useState } from 'react';
 import apidragon from '../../services/api_dragon'
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
 
 const Champion = props => {
     const [value, setValue] = useState(0);
@@ -13,29 +13,27 @@ const Champion = props => {
     }
 
     const champion = Object.values(props.champions);
-    const array = [];
-    const thumb = [];
-    champion[0].skins.map((e, i) => { 
-        array.push(<img src={'http://ddragon.leagueoflegends.com/cdn/img/champion/splash/'+champion[0].id+'_'+e.num+'.jpg'}></img>)
+    const images = champion[0].skins.map((e, i) => { 
+        return(
+            <div key={i}>
+                <img src={'http://ddragon.leagueoflegends.com/cdn/img/champion/splash/'+champion[0].id+'_'+e.num+'.jpg'}></img>
+            </div>
+        );
     });
     
-    champion[0].skins.map((e, i) => { 
-        thumb.push(<img src={'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/'+champion[0].id+'_'+e.num+'.jpg'}></img>)
-    });
     return(
         <>           
-            <Carousel 
-                plugins={['arrows']}
-                value={value}
-                onChange={onChange}
-                slides={array}
+        
+            <div class="champion-title">
+                <h1>{champion[0].name}</h1>
+            </div>
+            <Carousel
+                showStatus={false}
+                autoPlay={true}
+                interval={6000}
             >
+                {images}
             </Carousel>
-            <Dots 
-                thumbnails={thumb} 
-                value={value}
-                onChange={onChange}
-            />
         </>
     );
 }
@@ -63,17 +61,18 @@ class ChampionsInterna extends Component {
         })
     }
 
+
     render() {
         const { champions, loading } = this.state;
         if (loading){
           return <div>Carregando</div>
         }
         return (
-            <ChampionsBar>
+            <ChampionsInternaBar>
                 <Container className="container">  
-                    <Champion  champions = { champions } />
+                    <Champion champions = { champions } />
                 </Container>
-            </ChampionsBar>
+            </ChampionsInternaBar>
         );
     }
 
